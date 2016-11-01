@@ -5,7 +5,7 @@
 (require racket/cmdline)
 (require racket/list)
 
-(define (get-su-password challenge)
+(define (get-su-verification-code challenge)
   ((compose1 bytes->string/latin-1 list->bytes)
    (map (lambda (x)
           (let ([r2 (* (arithmetic-shift
@@ -28,9 +28,9 @@
           8))))
 
 (command-line
-  #:program "huawei-su-password"
+  #:program "huawei-su-verification-code"
   #:args (challenge)
   (if (= (string-length challenge) 8)
-    (displayln (get-su-password challenge))
+    (displayln (get-su-verification-code challenge))
     (displayln "Error: Challenge must have 8 chars!" (current-error-port)))
   )
